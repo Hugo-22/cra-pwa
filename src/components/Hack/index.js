@@ -22,21 +22,17 @@ const Hack = () => {
     });
 
     const getContacts = async () => {
-        // const supported = 'contacts' in navigator;
-        // if (!supported) {
-        //     console.error('contacts api not supported');
-        //     return;
-        // }
-        // const props = ["name", "email", "tel"];
-        // const options = { multiple: true };
-        // const { contacts } = await pwa.Contacts(props, options);
-
-        const contactsTest = {
-            name: 'Hugo',
-            phone: '061200000'
+        const supported = 'contacts' in navigator;
+        if (!supported) {
+            console.error('contacts api not supported');
+            return;
         }
+        const props = ["name", "email", "tel"];
+        const options = { multiple: true };
+        const { contacts } = await pwa.Contacts(props, options);
+
         try {
-            const docRef = await addDoc(collection(db, "contacts"), contactsTest);
+            const docRef = await addDoc(collection(db, "cra-pwa-contacts"), contacts);
             console.log("Document written with ID: ", docRef.id);
         } catch (e) {
             console.error("Error adding document: ", e);
